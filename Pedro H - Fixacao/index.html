@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedro H.-Exercicio de fixação</title>
+</head>
+<body>
+  <script>
+    function obterNotas() {
+      let notas = [];
+      let nomes = [];
+      const numDisciplinas = 3;
+ 
+      for (let i = 0; i < 5; i++) {
+        let nomeAluno = prompt("Insira o nome do aluno:");
+        nomes.push(nomeAluno);
+ 
+        let notasAluno = [];
+        for (let j = 0; j < numDisciplinas; j++) {
+          let nota = parseFloat(prompt(`Digite a nota da disciplina ${j + 1} para ${nomeAluno}:`));
+          notasAluno.push(nota);
+        }
+        notas.push(notasAluno);
+      }
+ 
+      return { notas, nomes };
+    }
+ 
+    function calcularMedia(notas, disciplina) {
+      let soma = 0;
+      const numAlunos = notas.length;
+ 
+      for (let i = 0; i < numAlunos; i++) {
+        soma += notas[i][disciplina];
+      }
+ 
+      const media = soma / numAlunos;
+      let resultado = `A média da disciplina selecionada foi: ${media.toFixed(2)}.<br>`;
+ 
+      if (media >= 6) {
+        resultado += "Aprovados! Parabéns, ótima performance!";
+      } else if (media >= 4) {
+        resultado += "Recuperação. Vamos estudar mais!";
+      } else {
+        resultado += "Reprovados. Melhor tentar de novo.";
+      }
+ 
+      document.write(resultado + "<br>");
+    }
+ 
+    function iniciar() {
+      const { notas, nomes } = obterNotas();
+      let continuar = true;
+ 
+      while (continuar) {
+        const disciplina = parseInt(
+          prompt(
+            "Escolha uma disciplina para calcular a média:\n1 - Geografia\n2 - Lógica de Programação\n3 - Matemática"
+          )
+        ) - 1;
+ 
+        if (disciplina >= 0 && disciplina < 3) {
+          calcularMedia(notas, disciplina);
+        } else {
+          alert("Disciplina inválida! Tente novamente.");
+        }
+ 
+        continuar = prompt("Deseja calcular a média de outra disciplina? (sim ou não)").toLowerCase() === "sim";
+      }
+    }
+ 
+    iniciar();
+  </script>
+</body>
+</html>
